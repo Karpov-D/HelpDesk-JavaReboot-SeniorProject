@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@Table(name = "tasks")
+@Table(name = "task")
 @Data
 @NoArgsConstructor
 public class Task {
@@ -13,4 +16,17 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String status;
+    private String description;
+
+    @ManyToMany
+    @JoinTable(
+            name = "task_user",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> users = new HashSet<>();
+
+
 }
