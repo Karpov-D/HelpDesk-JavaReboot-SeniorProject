@@ -1,7 +1,9 @@
 package ru.edu.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
@@ -9,8 +11,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "role")
-@Data
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Role {
 
     @Id
@@ -19,7 +22,7 @@ public class Role {
 
     private String name;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "role")
     private Set<User> users = new HashSet<>();
 
 }

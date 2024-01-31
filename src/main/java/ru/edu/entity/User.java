@@ -1,17 +1,19 @@
 package ru.edu.entity;
 
-import jakarta.persistence.*;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
-@Data
+@Table(name = "app_user")
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 public class User {
 
     @Id
@@ -26,7 +28,7 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @ManyToMany(mappedBy = "task")
+    @ManyToMany(mappedBy = "users")
     private Set<Task> tasks = new HashSet<>();
 
 }
