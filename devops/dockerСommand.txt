@@ -1,0 +1,17 @@
+docker pull openjdk:17-jdk-alpine  - скачать образ (openjdk:17-jdk-alpine название образа)
+
+docker images - просмотр образов
+
+docker run --name HelpDesk-DB --rm -it -p 8090:5432 -e POSTGRES_PASSWORD=password postgres:13.2-alpine  - запуск образа postgres
+
+docker run --rm -it -p 8089:5432 -v E:/8.IDEA_project/JavaRebootModule12BD:/var/lib/postgresql/data -e
+POSTGRES_PASSWORD=password postgres:13.2-alpine - запуск образа postgres со связываение директорий в контейнере и
+на локальной машине для сохранения данных при перезагрузке образа
+
+Создание образа с джарником:
+1. Собираем проект maven package
+2. В консоле переходим в папку devops   cd .\devops\
+3. Выполняем команду docker build -t help_desk_app_image .
+4. Проверяем что образ создан docker images
+5. Запускаем контейнер docker run -p 8080:8080 help_desk_app_image --spring.datasource.url=jdbc:postgresql://172.17.0.1:8090/postgres
+
