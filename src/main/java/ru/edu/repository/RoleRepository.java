@@ -6,4 +6,6 @@ import ru.edu.entity.Role;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
+
+
 }
