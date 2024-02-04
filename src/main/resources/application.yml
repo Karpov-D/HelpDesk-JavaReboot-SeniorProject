@@ -24,7 +24,6 @@ logging:
 
 
 
-  service:
-    title: HelpDesk
-    description: HelpDesk
-    version: 1.0 BETA
+service:
+  description: HelpDesk
+  version: 1.0 BETA
