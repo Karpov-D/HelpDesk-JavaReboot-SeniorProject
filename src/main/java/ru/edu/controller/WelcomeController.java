@@ -17,16 +17,16 @@ import ru.edu.service.HelpDeskService;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/v1/admin/", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-@Tag(name = "user", description = "Admin API")
-public class AdminController {
+@Tag(name = "welcome", description = "Welcome API")
+public class WelcomeController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final HelpDeskService service;
 
     @GetMapping
-    @Operation(summary = "")
+    @Operation(summary = "Get welcome page")
     public ResponseEntity<List<Task>> findAllTasks() {
         List<Task> tasks = service.findAllTasks();
         return new ResponseEntity<>(tasks, HttpStatus.OK);
