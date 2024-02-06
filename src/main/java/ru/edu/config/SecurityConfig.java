@@ -17,7 +17,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/").permitAll()
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/", "/css/styleFin.css").permitAll()
                         .requestMatchers("api/v1/users/**").authenticated())
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .build();
@@ -27,6 +27,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
-
-
 }

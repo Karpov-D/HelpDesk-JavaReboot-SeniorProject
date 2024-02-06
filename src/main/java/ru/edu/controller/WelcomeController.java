@@ -5,19 +5,16 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.edu.entity.Task;
+import org.springframework.web.servlet.ModelAndView;
 import ru.edu.service.HelpDeskService;
 
-import java.util.List;
 
-@RestController
-@RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+@Controller
+@RequestMapping(value = "/", consumes = MediaType.ALL_VALUE)
 @RequiredArgsConstructor
 @Tag(name = "welcome", description = "Welcome API")
 public class WelcomeController {
@@ -27,8 +24,9 @@ public class WelcomeController {
 
     @GetMapping
     @Operation(summary = "Get welcome page")
-    public ResponseEntity<List<Task>> findAllTasks() {
-        List<Task> tasks = service.findAllTasks();
-        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    public ModelAndView info() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("infoPage");
+        return modelAndView;
     }
 }
