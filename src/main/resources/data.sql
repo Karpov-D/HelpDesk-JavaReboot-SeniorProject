@@ -1,7 +1,7 @@
 INSERT INTO role (id, name)
-VALUES (1, 'ADMIN'),
-       (2, 'USER'),
-       (3, 'SUPPORT');
+VALUES (1, 'ROLE_ADMIN'),
+       (2, 'ROLE_USER'),
+       (3, 'ROLE_SUPPORT');
 
 INSERT INTO app_user (id, name, login, password, role_id)
 VALUES (1, 'John', 'login_1', 'pass_1', 1),

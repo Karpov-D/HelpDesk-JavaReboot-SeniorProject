@@ -7,10 +7,11 @@ import org.springframework.stereotype.Repository;
 import ru.edu.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("select a.login from User a join Task b where b.id = a.id")
-    List<User> getUserByTaskId(@Param("id") Long id);
+    Optional<User> findUserByLogin(String username);
+
 }
