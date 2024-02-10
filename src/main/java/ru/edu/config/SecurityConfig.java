@@ -30,7 +30,9 @@ public class SecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/", "/css/styleFin.css").permitAll()
                         .requestMatchers("api/v1/users/**").authenticated())
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/api/v1/users/getMainPage", true)
+                        .permitAll())
                 .build();
     }
 

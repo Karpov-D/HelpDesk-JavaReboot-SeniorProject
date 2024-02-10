@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import ru.edu.entity.Task;
 import ru.edu.service.HelpDeskService;
 
@@ -26,12 +27,21 @@ public class UserController  {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final HelpDeskService service;
 
-    @GetMapping
+    @GetMapping(value = "getAllTasks")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @Operation(summary = "Get all tasks")
     public ResponseEntity<List<Task>> findAllTasks() {
         List<Task> tasks = service.findAllTasks();
         return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "getMainPage")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @Operation(summary = "Get main page")
+    public ModelAndView getMainPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("main");
+        return modelAndView;
     }
 
 }
