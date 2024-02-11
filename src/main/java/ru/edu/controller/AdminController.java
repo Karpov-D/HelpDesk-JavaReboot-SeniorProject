@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.edu.entity.Task;
-import ru.edu.service.HelpDeskService;
+import ru.edu.service.TaskService;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import java.util.List;
 public class AdminController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-    private final HelpDeskService service;
+    private final TaskService service;
 
     @GetMapping
     @Operation(summary = "")

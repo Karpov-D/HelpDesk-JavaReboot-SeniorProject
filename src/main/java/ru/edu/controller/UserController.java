@@ -5,16 +5,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import ru.edu.entity.Task;
-import ru.edu.service.HelpDeskService;
+import ru.edu.service.TaskService;
 
 import java.util.List;
 
@@ -25,25 +23,25 @@ import java.util.List;
 public class UserController  {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-    private final HelpDeskService service;
+    private final TaskService service;
+
+    @GetMapping(value = "getMainPage")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_SUPPORT', 'ROLE_ADMIN')")
+    @Operation(summary = "Get main page")
+    public ModelAndView getMainPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("main");
+        return modelAndView;
+    }
 
     @GetMapping(value = "getAllTasks")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_SUPPORT', 'ROLE_ADMIN')")
     @Operation(summary = "Get all tasks")
     public ModelAndView findAllTasks() {
         List<Task> tasks = service.findAllTasks();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tasks", tasks);
         modelAndView.setViewName("getAllTasksPage");
-        return modelAndView;
-    }
-
-    @GetMapping(value = "getMainPage")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
-    @Operation(summary = "Get main page")
-    public ModelAndView getMainPage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("main");
         return modelAndView;
     }
 

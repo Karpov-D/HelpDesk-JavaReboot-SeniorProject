@@ -23,10 +23,4 @@ public class MyUserDetailsService implements UserDetailsService {
         return user.map(MyUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException(login + " not found"));
     }
-
-    public UserDetails loadUserByLogin(String login) throws UsernameNotFoundException {
-        Optional<User> user  = userRepository.findUserByLogin(login);
-        return user.map(MyUserDetails::new)
-                .orElseThrow(() -> new UsernameNotFoundException(login + " not found"));
-    }
 }
