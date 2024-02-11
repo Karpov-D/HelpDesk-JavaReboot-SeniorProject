@@ -30,9 +30,12 @@ public class UserController  {
     @GetMapping(value = "getAllTasks")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @Operation(summary = "Get all tasks")
-    public ResponseEntity<List<Task>> findAllTasks() {
+    public ModelAndView findAllTasks() {
         List<Task> tasks = service.findAllTasks();
-        return new ResponseEntity<>(tasks, HttpStatus.OK);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("tasks", tasks);
+        modelAndView.setViewName("getAllTasksPage");
+        return modelAndView;
     }
 
     @GetMapping(value = "getMainPage")

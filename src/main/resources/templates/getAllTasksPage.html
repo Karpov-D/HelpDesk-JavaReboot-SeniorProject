@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <link rel="stylesheet" type="text/css" href="/css/styleFin.css" />
+
+</head>
+
+<body>
+<h1>Список всех задач</h1>
+
+<tr th:each="task : ${tasks}">
+    <td th:text="${task.getId()}"></td>
+    <td th:text="${task.getStatus()}"></td>
+    <td th:text="${task.getDescription()}"></td>
+    <td th:text="${task.getUsers()}"></td>
+    <br>
+</tr>
+
+<hr>
+<a href="/api/v1/users/getMainPage">Вернуться на главную</a>
+</body>
+</html>

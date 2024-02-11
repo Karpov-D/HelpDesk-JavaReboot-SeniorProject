@@ -9,7 +9,19 @@
 <body>
 <h1>Help Desk</h1>
 
-Главная страница авторизованного пользователя
+<form method="GET" action="/api/v1/users/getAllTasks">
+    <input type="submit" value="Просмотр всех заявок"><br>
+</form>
+<form method="GET" action="/api/v1/user/addUserPage">
+    <input type="submit" value="Создание заявки"><br>
+</form>
+<form method="GET" action="/api/v1/user/editUserPage">
+    <input type="submit" value="Добавление информации по заявке"><br>
+</form>
+<form method="GET" action="/api/v1/user/deleteUserPage">
+    <input type="submit" value="Удаление заявки"><br>
+    <hr>
+</form>
 
 </body>
 </html>
