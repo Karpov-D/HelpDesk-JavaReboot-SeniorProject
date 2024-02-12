@@ -34,6 +34,10 @@ public class MyUserDetails implements UserDetails {
         return user.getName();
     }
 
+    public Long getId() {
+        return user.getId();
+    }
+
     public String getUserlogin() {
         return user.getLogin();
     }

@@ -21,6 +21,10 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
+    public List<Task> findAllTasksForUserOrSupport(Long id) {
+        return taskRepository.getTasksListing(id);
+    }
+
     public Task findById(Long id) {
         return taskRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("User not found, id = " + id));
     }
