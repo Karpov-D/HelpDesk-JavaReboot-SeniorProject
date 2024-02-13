@@ -9,6 +9,7 @@ import java.util.Set;
 @Entity
 @Table(name = "task")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode

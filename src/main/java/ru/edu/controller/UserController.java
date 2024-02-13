@@ -12,13 +12,12 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.edu.config.MyUserDetails;
 import ru.edu.entity.Task;
 import ru.edu.entity.User;
+import ru.edu.exception.ItemNotFoundException;
 import ru.edu.service.TaskService;
 import ru.edu.service.UserService;
 
@@ -67,6 +66,33 @@ public class UserController  {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tasks", tasks);
         modelAndView.setViewName("getAllTasksPage");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "addTaskPage")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @Operation(summary = "Add task")
+    public ModelAndView addTaskPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("addTasksPage");
+        return modelAndView;
+    }
+
+
+    @PostMapping("addTask")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    public ModelAndView postUser(@RequestParam("description") String description) {
+        MyUserDetails res = foo();
+        Long id = res.getId();
+
+        ModelAndView modelAndView = new ModelAndView();
+        Task task = new Task();
+        task.setDescription(description);
+        task.setStatus("CREATED");
+        task = service.save(task);
+        service.postTaskIdAndUserId(id, task.getId());
+
+        modelAndView.setViewName("resultSuccess");
         return modelAndView;
     }
 

@@ -29,6 +29,10 @@ public class TaskService {
         return taskRepository.getTasksListing(id);
     }
 
+    public void postTaskIdAndUserId(Long userId, Long taskId) {
+        taskRepository.postTaskIdAndUserId(userId, taskId);
+    }
+
     public Task findById(Long id) {
         return taskRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("User not found, id = " + id));
     }
