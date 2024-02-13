@@ -11,8 +11,13 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    @Query("select a from Task a join User b where b.id = :id")
-    List<Task> getTasksListing(@Param("id") Long id);
+    @Query(value = "SELECT task_id FROM task_user WHERE user_id = %:id%",
+    nativeQuery = true)
+    List<Long> getTasksId(@Param("id") Long id);
+
+    @Query(value = "SELECT * FROM task WHERE id IN(%:id%)",
+            nativeQuery = true)
+    List<Task> getTasksListing(@Param("id") List<Long> id);
 
 
 

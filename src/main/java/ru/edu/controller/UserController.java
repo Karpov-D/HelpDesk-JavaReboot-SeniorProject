@@ -61,7 +61,9 @@ public class UserController  {
         MyUserDetails res = foo();
         Long id = res.getId();
 
-        List<Task> tasks = service.findAllTasks();
+        List<Long> tasksId = service.findAllTasksIdForUserOrSupport(id);
+        List<Task> tasks = service.findAllTasksForUserOrSupport(tasksId);
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tasks", tasks);
         modelAndView.setViewName("getAllTasksPage");
