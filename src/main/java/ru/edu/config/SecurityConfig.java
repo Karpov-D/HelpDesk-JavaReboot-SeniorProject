@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ru.edu.service.MyUserDetailsService;
 
 @Configuration
@@ -28,10 +30,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/", "/css/styleFin.css").permitAll()
-                        .requestMatchers("api/v1/users/**").authenticated())
+                        .requestMatchers("api/v1/**").authenticated())
                 .formLogin(form -> form
                         .defaultSuccessUrl("/api/v1/users/getMainPage", true)
                         .permitAll())
+                //.exceptionHandling((exception)-> exception.accessDeniedPage("/fail"))
                 .build();
     }
 

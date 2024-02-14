@@ -23,4 +23,12 @@ public class WelcomeController {
         modelAndView.setViewName("infoPage");
         return modelAndView;
     }
+
+    @GetMapping(value = "fail")
+    @Operation(summary = "Get fail page")
+    public ModelAndView fail() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("resultFail");
+        return modelAndView;
+    }
 }
