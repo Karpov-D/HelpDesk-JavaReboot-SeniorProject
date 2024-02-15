@@ -39,18 +39,20 @@ public class SupportController {
 
     @PostMapping("changeStatus")
     @PreAuthorize("hasAnyRole('ROLE_SUPPORT', 'ROLE_ADMIN')")
-    public ModelAndView changeStatus(@RequestParam("description") String description) {
+    public ModelAndView changeStatus(@RequestParam("id") Long id,
+                                     @RequestParam("status") String status) {
 
 
         MyUserDetails res = foo();
-        Long id = res.getId();
+        Long userId = res.getId();
 
         ModelAndView modelAndView = new ModelAndView();
-        Task task = new Task();
-        task.setDescription(description);
-        task.setStatus("CREATED");
-        task = service.save(task);
-        service.postTaskIdAndUserId(id, task.getId());
+
+        Task task = service.findById(id);
+        task.setStatus(status);
+
+        task = service.update(task);
+        //service.postTaskIdAndUserId(userId, task.getId());
 
         modelAndView.setViewName("resultSuccess");
         return modelAndView;

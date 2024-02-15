@@ -9,16 +9,10 @@
 <body>
 <h1>Изменение статуса заявки</h1>
 
-<form method="POST" action="/api/v1/support/changeStatus">
+<form method="POST" action="/api/v1/admin/deleteTask">
     <label>Введите id задачи:  </label>
     <input type="text" name="id"><br>
-    <label>Выберете статус задачи:  </label>
-    <select name="status" required>
-        <option value="IN WORK">IN WORK</option>
-        <option value="NEED INFO">NEED INFO</option>
-        <option value="DONE">DONE</option>
-    </select><br>
-    <input type="submit" value="Изменить статус"><br>
+    <input type="submit" value="Удалить задачу"><br>
 </form>
 
 
