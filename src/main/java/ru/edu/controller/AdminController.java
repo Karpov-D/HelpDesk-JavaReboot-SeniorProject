@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.edu.config.MyUserDetails;
 import ru.edu.entity.Task;
+import ru.edu.exception.ItemNotFoundException;
 import ru.edu.service.TaskService;
 
 import java.util.List;
@@ -40,20 +41,17 @@ public class AdminController {
 
     @PostMapping("deleteTask")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public ModelAndView changeStatus(@RequestParam("id") Long id) {
-
-
-        MyUserDetails res = foo();
-        Long userId = res.getId();
-
+    public ModelAndView changeStatus(@RequestParam("id") String id) {
         ModelAndView modelAndView = new ModelAndView();
-
-        Task task = service.findById(id);
-
-
-        service.deleteById(task.getId());
-
-        modelAndView.setViewName("resultSuccess");
-        return modelAndView;
+        try {
+            Long taskId = Long.parseLong(id);
+            Task task = service.findById(taskId);
+            service.deleteById(task.getId());
+            modelAndView.setViewName("resultSuccess");
+            return modelAndView;
+        }  catch (ItemNotFoundException | NumberFormatException e) {
+            modelAndView.setViewName("resultError");
+            return modelAndView;
+        }
     }
 }
