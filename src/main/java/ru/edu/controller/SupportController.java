@@ -14,9 +14,7 @@ import ru.edu.entity.Task;
 import ru.edu.exception.ItemNotFoundException;
 import ru.edu.service.TaskService;
 import ru.edu.service.UserService;
-
 import java.util.List;
-
 import static ru.edu.controller.DefaultMethods.foo;
 
 @RestController
@@ -44,14 +42,10 @@ public class SupportController {
     @PreAuthorize("hasAnyRole('ROLE_SUPPORT', 'ROLE_ADMIN')")
     public ModelAndView changeStatus(@RequestParam("id") String id,
                                      @RequestParam("status") String status) {
-
-
         MyUserDetails res = foo();
         Long userId = res.getId();
         List<Long> tasksId = service.findAllTasksIdForUserOrSupport(userId);
-
         ModelAndView modelAndView = new ModelAndView();
-
         try {
             Long taskId = Long.parseLong(id);
             if(tasksId.contains(taskId)) {

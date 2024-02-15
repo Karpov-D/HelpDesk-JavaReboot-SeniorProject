@@ -41,13 +41,10 @@ public class UserController  {
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_SUPPORT', 'ROLE_ADMIN')")
     @Operation(summary = "Get all tasks")
     public ModelAndView findAllTasks() {
-
         MyUserDetails res = foo();
         Long id = res.getId();
-
         List<Long> tasksId = service.findAllTasksIdForUserOrSupport(id);
         List<Task> tasks = service.findAllTasksForUserOrSupport(tasksId);
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tasks", tasks);
         modelAndView.setViewName("getAllTasksPage");
@@ -69,14 +66,12 @@ public class UserController  {
     public ModelAndView postUser(@RequestParam("description") String description) {
         MyUserDetails res = foo();
         Long id = res.getId();
-
         ModelAndView modelAndView = new ModelAndView();
         Task task = new Task();
         task.setDescription(description);
         task.setStatus("CREATED");
         task = service.save(task);
         service.postTaskIdAndUserId(id, task.getId());
-
         modelAndView.setViewName("resultSuccess");
         return modelAndView;
     }
