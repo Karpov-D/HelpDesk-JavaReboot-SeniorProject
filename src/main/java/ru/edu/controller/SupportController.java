@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.edu.config.MyUserDetails;
 import ru.edu.entity.Task;
+import ru.edu.exception.ItemNotFoundException;
 import ru.edu.service.TaskService;
 import ru.edu.service.UserService;
+
+import java.util.List;
 
 import static ru.edu.controller.DefaultMethods.foo;
 
@@ -39,23 +42,33 @@ public class SupportController {
 
     @PostMapping("changeStatus")
     @PreAuthorize("hasAnyRole('ROLE_SUPPORT', 'ROLE_ADMIN')")
-    public ModelAndView changeStatus(@RequestParam("id") Long id,
+    public ModelAndView changeStatus(@RequestParam("id") String id,
                                      @RequestParam("status") String status) {
 
 
         MyUserDetails res = foo();
         Long userId = res.getId();
+        List<Long> tasksId = service.findAllTasksIdForUserOrSupport(userId);
 
         ModelAndView modelAndView = new ModelAndView();
 
-        Task task = service.findById(id);
-        task.setStatus(status);
+        try {
+            Long taskId = Long.parseLong(id);
+            if(tasksId.contains(taskId)) {
+                Task task = service.findById(taskId);
+                task.setStatus(status);
+                service.update(task);
+                modelAndView.setViewName("resultSuccess");
+                return modelAndView;
+            } else {
+                modelAndView.setViewName("resultError");
+                return modelAndView;
+            }
+        } catch (ItemNotFoundException | NumberFormatException e) {
+            modelAndView.setViewName("resultError");
+            return modelAndView;
+        }
 
-        task = service.update(task);
-        //service.postTaskIdAndUserId(userId, task.getId());
-
-        modelAndView.setViewName("resultSuccess");
-        return modelAndView;
     }
 
 }
