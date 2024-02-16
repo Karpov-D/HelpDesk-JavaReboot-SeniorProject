@@ -33,6 +33,7 @@ public class SupportController {
     @Operation(summary = "Add task")
     public ModelAndView changeStatusPage() {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("URL", "/api/v1/support/changeStatus");
         modelAndView.setViewName("changeStatus");
         return modelAndView;
     }
@@ -62,7 +63,6 @@ public class SupportController {
             modelAndView.setViewName("resultError");
             return modelAndView;
         }
-
     }
 
 }

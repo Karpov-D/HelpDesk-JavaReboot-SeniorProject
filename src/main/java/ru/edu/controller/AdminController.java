@@ -32,12 +32,11 @@ public class AdminController {
     @GetMapping(value = "deleteTaskPage")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @Operation(summary = "Add task")
-    public ModelAndView changeStatusPage() {
+    public ModelAndView deletePage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("deleteTask");
         return modelAndView;
     }
-
 
     @PostMapping("deleteTask")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -50,6 +49,45 @@ public class AdminController {
             modelAndView.setViewName("resultSuccess");
             return modelAndView;
         }  catch (ItemNotFoundException | NumberFormatException e) {
+            modelAndView.setViewName("resultError");
+            return modelAndView;
+        }
+    }
+
+    @GetMapping(value = "getAllTasks")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @Operation(summary = "Get all tasks")
+    public ModelAndView findAllTasks() {
+        List<Task> tasks = service.findAllTasks();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("tasks", tasks);
+        modelAndView.setViewName("getAllTasksPage");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "changeStatusPage")
+    @PreAuthorize("hasAnyRole('ROLE_SUPPORT', 'ROLE_ADMIN')")
+    @Operation(summary = "Add task")
+    public ModelAndView changeStatusPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("URL", "/api/v1/admin/changeStatus");
+        modelAndView.setViewName("changeStatus");
+        return modelAndView;
+    }
+
+    @PostMapping("changeStatus")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    public ModelAndView changeStatus(@RequestParam("id") String id,
+                                     @RequestParam("status") String status) {
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            Long taskId = Long.parseLong(id);
+            Task task = service.findById(taskId);
+            task.setStatus(status);
+            service.update(task);
+            modelAndView.setViewName("resultSuccess");
+            return modelAndView;
+        } catch (ItemNotFoundException | NumberFormatException e) {
             modelAndView.setViewName("resultError");
             return modelAndView;
         }
