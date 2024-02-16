@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/", "/css/styleFin.css").permitAll()
                         .requestMatchers("api/v1/**").authenticated())
                 .formLogin(form -> form
-                        .defaultSuccessUrl("/api/v1/users/getMainPage", true)
+                        .defaultSuccessUrl("/api/v1/getMainPage", true)
                         .permitAll())
                 //.exceptionHandling((exception)-> exception.accessDeniedPage("/fail"))
                 .build();

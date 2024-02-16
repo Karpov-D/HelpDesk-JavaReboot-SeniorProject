@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Info</title>
+    <link rel="stylesheet" type="text/css" href="/css/styleFin.css" />
+
+</head>
+
+<body>
+<h1>Help Desk (Admin)</h1>
+
+<form method="GET" action="/api/v1/users/getAllTasks">
+    <input type="submit" value="Просмотр всех заявок"><br>
+</form>
+<form method="GET" action="/api/v1/users/addTaskPage">
+    <input type="submit" value="Создание заявки (user)"><br>
+</form>
+<form method="GET" action="/api/v1/support/changeStatusPage">
+    <input type="submit" value="Изменение статуча заявки (support)"><br>
+</form>
+<form method="GET" action="/api/v1/admin/deleteTaskPage">
+    <input type="submit" value="Удаление заявки (admin)"><br>
+    <hr>
+</form>
+</body>
+</html>

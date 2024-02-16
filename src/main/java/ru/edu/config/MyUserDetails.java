@@ -3,6 +3,7 @@ package ru.edu.config;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.edu.entity.Role;
 import ru.edu.entity.User;
 
 import java.util.Arrays;
@@ -40,6 +41,10 @@ public class MyUserDetails implements UserDetails {
 
     public String getUserlogin() {
         return user.getLogin();
+    }
+
+    public Role getRole() {
+        return user.getRole();
     }
 
     @Override

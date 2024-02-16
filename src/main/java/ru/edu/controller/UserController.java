@@ -28,15 +28,6 @@ public class UserController  {
     private final UserService userService;
 
 
-    @GetMapping(value = "getMainPage")
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_SUPPORT', 'ROLE_ADMIN')")
-    @Operation(summary = "Get main page")
-    public ModelAndView getMainPage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("main");
-        return modelAndView;
-    }
-
     @GetMapping(value = "getAllTasks")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_SUPPORT', 'ROLE_ADMIN')")
     @Operation(summary = "Get all tasks")
