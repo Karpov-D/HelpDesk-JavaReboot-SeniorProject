@@ -19,7 +19,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>17</java.version>
-    <junit.version>5.7.2</junit.version>
+    <junit.version>5.10.2</junit.version>
     <spring.version>3.2.0</spring.version>
   </properties>
 
@@ -35,6 +35,13 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
       <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
+      <version>5.7.4</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
